@@ -49,4 +49,4 @@ python main.py
 ```
 
 ## AI Workflow Definition
-The core agent logic is defined in `CRB.json`, which can be imported into the Sim.AI platform to replicate the agentic diagnostic pipeline.
+The core agent logic is defined in `CRBanalyser.json`, which can be imported into the Sim.AI platform to replicate the agentic diagnostic pipeline.
