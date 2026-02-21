@@ -1,0 +1,422 @@
+{
+    "version": "1.0",
+    "exportedAt": "2025-11-30T00:00:00.000Z",
+    "state": {
+        "blocks": {
+            "api-trigger-1": {
+                "id": "api-trigger-1",
+                "type": "api_trigger",
+                "name": "CRB_Analyzer_API",
+                "position": {
+                    "x": -1200,
+                    "y": -200
+                },
+                "enabled": true,
+                "horizontalHandles": true,
+                "isWide": false,
+                "advancedMode": false,
+                "triggerMode": false,
+                "height": 320,
+                "subBlocks": {
+                    "inputFormat": {
+                        "id": "inputFormat",
+                        "type": "input-format",
+                        "value": [
+                            {
+                                "id": "t1",
+                                "name": "ticket_id",
+                                "type": "string",
+                                "value": "",
+                                "collapsed": false
+                            },
+                            {
+                                "id": "t2",
+                                "name": "summary",
+                                "type": "string",
+                                "value": "",
+                                "collapsed": false
+                            },
+                            {
+                                "id": "t3",
+                                "name": "description",
+                                "type": "string",
+                                "value": "",
+                                "collapsed": false
+                            },
+                            {
+                                "id": "t4",
+                                "name": "status",
+                                "type": "string",
+                                "value": "",
+                                "collapsed": false
+                            },
+                            {
+                                "id": "t5",
+                                "name": "priority",
+                                "type": "string",
+                                "value": "",
+                                "collapsed": false
+                            },
+                            {
+                                "id": "t6",
+                                "name": "comments",
+                                "type": "string",
+                                "value": "",
+                                "collapsed": false
+                            },
+                            {
+                                "id": "t7",
+                                "name": "days_in_status",
+                                "type": "number",
+                                "value": "",
+                                "collapsed": false
+                            },
+                            {
+                                "id": "t8",
+                                "name": "total_days_open",
+                                "type": "number",
+                                "value": "",
+                                "collapsed": false
+                            }
+                        ]
+                    }
+                },
+                "outputs": {},
+                "data": {}
+            },
+            "agent-diagnosis": {
+                "id": "agent-diagnosis",
+                "type": "agent",
+                "name": "TicketDiagnosis",
+                "position": {
+                    "x": -600,
+                    "y": -200
+                },
+                "enabled": true,
+                "horizontalHandles": true,
+                "isWide": false,
+                "advancedMode": false,
+                "triggerMode": false,
+                "height": 620,
+                "subBlocks": {
+                    "model": {
+                        "id": "model",
+                        "type": "combobox",
+                        "value": "o4-mini"
+                    },
+                    "tools": {
+                        "id": "tools",
+                        "type": "tool-input",
+                        "value": []
+                    },
+                    "apiKey": {
+                        "id": "apiKey",
+                        "type": "short-input",
+                        "value": ""
+                    },
+                    "memories": {
+                        "id": "memories",
+                        "type": "short-input",
+                        "value": null
+                    },
+                    "verbosity": {
+                        "id": "verbosity",
+                        "type": "dropdown",
+                        "value": null
+                    },
+                    "temperature": {
+                        "id": "temperature",
+                        "type": "slider",
+                        "value": 0.3
+                    },
+                    "systemPrompt": {
+                        "id": "systemPrompt",
+                        "type": "long-input",
+                        "value": "You are a Jira ticket diagnosis agent for CRB (Customer Reported Bugs).\n\nYour job is to:\n- Read the ticket summary, description, comments, status and timeline.\n- Identify the real underlying cause in a compact technical phrase.\n- Identify the current status context in a short phrase.\n\nReturn ONLY a valid JSON in this exact format:\n{\n  \"cause\": \"<short technical reason, e.g. 'Webhook not received from vendor'>\",\n  \"status_context\": \"<short status phrase, e.g. 'still unassigned in To-Do' or 'in review' or 'fixed'>\"\n}\n\nRules:\n- \"cause\" must be concise and factual, no fluff.\n- \"status_context\" should describe ticket state in 3–7 words max.\n- Do not add explanation text outside JSON."
+                    },
+                    "userPrompt": {
+                        "id": "userPrompt",
+                        "type": "long-input",
+                        "value": "Ticket data:\n\nTicket ID: <CRB_Analyzer_API.ticket_id>\nSummary: <CRB_Analyzer_API.summary>\nDescription: <CRB_Analyzer_API.description>\nStatus: <CRB_Analyzer_API.status>\nPriority: <CRB_Analyzer_API.priority>\nDays in status: <CRB_Analyzer_API.days_in_status>\nTotal days open: <CRB_Analyzer_API.total_days_open>\n\nRecent comments (latest first):\n<CRB_Analyzer_API.comments>\n\nUsing this information, fill the JSON fields exactly as requested in the system prompt. If the status is 'Cancelled' or 'Rejected', this is likely a false report."
+                    },
+                    "azureEndpoint": {
+                        "id": "azureEndpoint",
+                        "type": "short-input",
+                        "value": null
+                    },
+                    "responseFormat": {
+                        "id": "responseFormat",
+                        "type": "code",
+                        "value": null
+                    },
+                    "azureApiVersion": {
+                        "id": "azureApiVersion",
+                        "type": "short-input",
+                        "value": null
+                    },
+                    "reasoningEffort": {
+                        "id": "reasoningEffort",
+                        "type": "dropdown",
+                        "value": null
+                    }
+                },
+                "outputs": {
+                    "model": "string",
+                    "tokens": "any",
+                    "content": "string",
+                    "toolCalls": "any"
+                },
+                "data": {}
+            },
+            "kb-internal-comments": {
+                "id": "kb-internal-comments",
+                "type": "knowledge",
+                "name": "InternalCommentsKB",
+                "position": {
+                    "x": 200,
+                    "y": -380
+                },
+                "enabled": true,
+                "horizontalHandles": true,
+                "isWide": false,
+                "advancedMode": false,
+                "triggerMode": false,
+                "height": 340,
+                "subBlocks": {
+                    "name": {
+                        "id": "name",
+                        "type": "short-input",
+                        "value": "CRB_Internal_Comments"
+                    },
+                    "topK": {
+                        "id": "topK",
+                        "type": "short-input",
+                        "value": "5"
+                    },
+                    "query": {
+                        "id": "query",
+                        "type": "short-input",
+                        "value": "<TicketDiagnosis.content>"
+                    },
+                    "content": {
+                        "id": "content",
+                        "type": "long-input",
+                        "value": null
+                    },
+                    "operation": {
+                        "id": "operation",
+                        "type": "dropdown",
+                        "value": "search"
+                    },
+                    "documentId": {
+                        "id": "documentId",
+                        "type": "document-selector",
+                        "value": ""
+                    },
+                    "tagFilters": {
+                        "id": "tagFilters",
+                        "type": "knowledge-tag-filters",
+                        "value": ""
+                    },
+                    "documentTags": {
+                        "id": "documentTags",
+                        "type": "document-tag-entry",
+                        "value": ""
+                    },
+                    "knowledgeBaseId": {
+                        "id": "knowledgeBaseId",
+                        "type": "knowledge-base-selector",
+                        "value": "YOUR_KB_ID_HERE"
+                    }
+                },
+                "outputs": {
+                    "query": "string",
+                    "results": "json",
+                    "totalResults": "number"
+                },
+                "data": {}
+            },
+            "agent-internal-comment": {
+                "id": "agent-internal-comment",
+                "type": "agent",
+                "name": "InternalCommentWriter",
+                "position": {
+                    "x": 850,
+                    "y": -200
+                },
+                "enabled": true,
+                "horizontalHandles": true,
+                "isWide": false,
+                "advancedMode": false,
+                "triggerMode": false,
+                "height": 640,
+                "subBlocks": {
+                    "model": {
+                        "id": "model",
+                        "type": "combobox",
+                        "value": "gpt-4o-mini"
+                    },
+                    "tools": {
+                        "id": "tools",
+                        "type": "tool-input",
+                        "value": []
+                    },
+                    "apiKey": {
+                        "id": "apiKey",
+                        "type": "short-input",
+                        "value": ""
+                    },
+                    "memories": {
+                        "id": "memories",
+                        "type": "short-input",
+                        "value": null
+                    },
+                    "verbosity": {
+                        "id": "verbosity",
+                        "type": "dropdown",
+                        "value": null
+                    },
+                    "temperature": {
+                        "id": "temperature",
+                        "type": "slider",
+                        "value": 0.4
+                    },
+                    "systemPrompt": {
+                        "id": "systemPrompt",
+                        "type": "long-input",
+                        "value": "You are an internal Jira comment writer for CRB (Customer Reported Bugs).\n\nGoal:\nWrite a SINGLE internal comment line in a balanced but critical operational tone.\n\nYou receive:\n- A diagnosis JSON with fields: cause, status_context.\n- Top 5 similar past comments from the internal comments KB.\n\nStyle rules (VERY IMPORTANT):\n- Exactly ONE sentence.\n- Max 18–20 words.\n- Include:\n  - Status or state (e.g. \"Still unassigned in To-Do\", \"In review\", \"Resolved\", etc.)\n  - Core cause (e.g. \"Backend URL misconfigured\", \"Webhook not received\", \"Expired WhatsApp token\", etc.)\n  - Current outcome or state (e.g. \"no fix yet\", \"fixed\", \"marked false report\").\n- Tone: factual, direct, slightly critical when needed, but professional.\n- No suggestions, no how-to steps, no impact explanation.\n- No bullet points, no markdown. Plain text only.\n\nReturn ONLY valid JSON like this:\n{\n  \"internal_comment\": \"<your one-line comment here>\"\n}\n\nUse the KB examples to mimic tone and phrasing similar to existing internal comments."
+                    },
+                    "userPrompt": {
+                        "id": "userPrompt",
+                        "type": "long-input",
+                        "value": "Diagnosis JSON from previous agent:\n<TicketDiagnosis.content>\n\nSimilar past internal comments (from KB):\n<InternalCommentsKB.results>\n\nUse these to write the final 1-line internal comment in the required JSON format."
+                    },
+                    "azureEndpoint": {
+                        "id": "azureEndpoint",
+                        "type": "short-input",
+                        "value": null
+                    },
+                    "responseFormat": {
+                        "id": "responseFormat",
+                        "type": "code",
+                        "value": null
+                    },
+                    "azureApiVersion": {
+                        "id": "azureApiVersion",
+                        "type": "short-input",
+                        "value": null
+                    },
+                    "reasoningEffort": {
+                        "id": "reasoningEffort",
+                        "type": "dropdown",
+                        "value": null
+                    }
+                },
+                "outputs": {
+                    "model": "string",
+                    "tokens": "any",
+                    "content": "string",
+                    "toolCalls": "any"
+                },
+                "data": {}
+            },
+            "response-final": {
+                "id": "response-final",
+                "type": "response",
+                "name": "CRB_InternalComment_Response",
+                "position": {
+                    "x": 1450,
+                    "y": -200
+                },
+                "enabled": true,
+                "horizontalHandles": true,
+                "isWide": true,
+                "advancedMode": false,
+                "triggerMode": false,
+                "height": 360,
+                "subBlocks": {
+                    "data": {
+                        "id": "data",
+                        "type": "code",
+                        "value": "<InternalCommentWriter.content>"
+                    },
+                    "status": {
+                        "id": "status",
+                        "type": "short-input",
+                        "value": null
+                    },
+                    "headers": {
+                        "id": "headers",
+                        "type": "table",
+                        "value": null
+                    },
+                    "dataMode": {
+                        "id": "dataMode",
+                        "type": "dropdown",
+                        "value": "json"
+                    },
+                    "builderData": {
+                        "id": "builderData",
+                        "type": "response-format",
+                        "value": null
+                    }
+                },
+                "outputs": {
+                    "data": "json",
+                    "status": "number",
+                    "headers": "json"
+                },
+                "data": {}
+            }
+        },
+        "edges": [
+            {
+                "id": "edge-api-to-dx",
+                "source": "api-trigger-1",
+                "target": "agent-diagnosis",
+                "sourceHandle": "source",
+                "targetHandle": "target",
+                "type": "default",
+                "data": {}
+            },
+            {
+                "id": "edge-dx-to-kb",
+                "source": "agent-diagnosis",
+                "target": "kb-internal-comments",
+                "sourceHandle": "source",
+                "targetHandle": "target",
+                "type": "default",
+                "data": {}
+            },
+            {
+                "id": "edge-dx-to-writer",
+                "source": "agent-diagnosis",
+                "target": "agent-internal-comment",
+                "sourceHandle": "source",
+                "targetHandle": "target",
+                "type": "default",
+                "data": {}
+            },
+            {
+                "id": "edge-kb-to-writer",
+                "source": "kb-internal-comments",
+                "target": "agent-internal-comment",
+                "sourceHandle": "source",
+                "targetHandle": "target",
+                "type": "default",
+                "data": {}
+            },
+            {
+                "id": "edge-writer-to-response",
+                "source": "agent-internal-comment",
+                "target": "response-final",
+                "sourceHandle": "source",
+                "targetHandle": "target",
+                "type": "default",
+                "data": {}
+            }
+        ],
+        "loops": {},
+        "parallels": {}
+    }
+}

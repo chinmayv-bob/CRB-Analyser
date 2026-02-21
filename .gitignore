@@ -1,0 +1,72 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.*
+
+# Sensitive credential files
+*.json
+*.pem
+*.key
+!template.env
+
+# Data and Artifacts
+*.csv
+*.pdf
+CRB_kb.csv
+*.log
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Exclude specific files containing sensitive data
+ticket-automation-*.json
+*.json
